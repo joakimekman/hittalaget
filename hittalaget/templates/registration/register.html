@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}skapa nytt konto{% endblock title %}
+{% block content %}
+  <h1>Skapa nytt konto</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+      <p>{{ field.label }}</p>
+      <p>{{ field.errors }}</p>
+      <p>{{ field.help_text }}</p>
+      <p>{{ field }}</p>
+    {% endfor %}
+
+    <input type="submit" value="skapa konto">
+  </form>
+{% endblock content %}

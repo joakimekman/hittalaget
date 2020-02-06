@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}logga in{% endblock title %}
+{% block content %}
+  <h1>Logga in</h1>
+  {% if next %}
+    <p>Du har inte tillgång till denna sida. Var snäll och logga in på ett konto med behörighet.</p>
+  {% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <p>{{ field.label }}</p>
+      <p>{{ field.errors }}</p>
+      <p>{{ field }}</p>
+    {% endfor %}
+    <input type="submit" value="logga in">
+  </form>
+  <a href="{% url 'password_reset' %}">glömt lösenordet?</a>
+  <hr>
+  <a href="{% url 'user:register' %}">skapa konto</a> 
+{% endblock content %}
