@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}uppdatera spelarprofil{% endblock title %}
+{% block content %}
+    <h1>Uppdatera spelarprofil</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="skapa spelarprofil">
+    </form>
+{% endblock content %}

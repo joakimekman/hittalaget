@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}spelarmarknad: {{ view.kwargs.sport }}{% endblock title %}
+{% block content %}
+    <h1>Spelarmarknad</h1>
+    <h2>{{ view.kwargs.sport|title }}</h2>
+    <ul>
+    {% for player in object_list %}
+        <li><a href="{% url 'player:detail' sport=player.sport username=player.username %}">{{ player.username }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock content %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}ta bort historik{% endblock title %}
+{% block content %}
+    <p>Vill du verkligen ta bort historiken?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Ja">
+    </form>
+{% endblock content %}

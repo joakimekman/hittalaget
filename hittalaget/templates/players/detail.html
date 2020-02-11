@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.username }}{% endblock title %}
+{% block content %}
+    <h1>Spelarprofil</h1>
+    <hr>
+    <img src="{{ object.image.url }}" alt="">
+    <p><strong>user:</strong> <a href="{% url 'user:detail' username=object.user %}">{{ object.user }}</a></p>
+    <p><strong>sport:</strong> <a href="{% url 'player:list' sport=object.sport %}"> {{ object.sport }}</a></p>
+    <p>
+        <strong>positioner:</strong>
+        {% for position in object.positions.all %}
+            <span style="background: mediumseagreen; color:white; padding:2px 4px; border-radius:4px;">{{ position }}</span st>
+        {% endfor %} 
+    </p>
+    <p><strong>{{ side }}</strong> {{ object.side }}</p>
+    <p><strong>bästa erfarenhet:</strong> {{ object.experience }}</p>
+    <p><strong>spetsegenskap:</strong> {{ object.special_ability }}</p>
+    {% if object.user.height is None %}
+        {% if user == object.user %}
+            <p><strong>längd:</strong> <i>Välj din längd under <a href="{% url 'user:update_account' %}">inställningar</a> för ditt konto.</i></p>
+        {% else %}
+            <p><strong>längd:</strong> -</p>
+        {% endif %}
+        
+    {% else %}
+        <p><strong>längd:</strong> {{ object.user.height }} cm</p>
+    {% endif %}
+    {% if user == object.user %}
+        <form method="POST" action="{% url 'player:update_status' sport=object.sport %}">
+            {% csrf_token %}
+            <p><strong>status:</strong> <input type="submit" value="{{ status }}"></p>
+        </form>
+    {% else %}
+        <p><strong>status:</strong> {{ status }}</p>
+    {% endif %}
+
+    <h2>Historik</h2>
+    
+    {% if object.history_entries %}
+        <table>
+            <tr>
+                <td>Lag</td>
+                <td>Började</td>
+                <td>Slutade</td>
+                <td></td>
+            </tr>
+        {% for entry in object.history_entries.all %}
+            <tr>
+                <td>{{ entry.team_name }}</td>
+                <td>{{ entry.start_year }}</td>
+                <td>{{ entry.end_year }}</td>
+                {% if user == object.user %}
+                    <td><a href="{% url 'player:delete_history' sport=object.sport id=entry.id %}">ta bort</a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
+
+    <hr>
+
+    {% if user == object.user %}
+        <a href="{% url 'player:create_history' sport=object.sport %}">skapa historik</a> |
+        <a href="{% url 'player:update' sport=object.sport %}">uppdatera profil</a> |
+        <a href="{% url 'player:delete' sport=object.sport %}">ta bort profil</a>
+    {% endif %}
+{% endblock content %}

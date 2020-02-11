@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}ta bort spelarprofil{% endblock title %}
+{% block content %}
+    <p>Är du säker på att du vill ta bort denna spelarprofil?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Ja">
+    </form>
+{% endblock content %}
