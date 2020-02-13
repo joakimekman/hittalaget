@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}ta bort {{ object }}{% endblock title %}
+{% block content %}
+    <h1>Ta bort {{ object }}</h1>
+    <p>Är du säker på att du vill ta bort {{ object }}?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Ja">
+    </form>
+{% endblock content %}

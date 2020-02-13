@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Uppdatera {{ object }}{% endblock title %}
+{% block content %}
+    <h1>Uppdatera {{ object }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+        {% for field in form %}
+            <p>{{ field.label }}</p>
+            <p>{{ field.errors }}</p>
+            <p>{{ field }}</p>
+        {% endfor %}
+        <input type="submit" value="spara">
+    </form>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}skapa ett lag{% endblock title %}
+{% block content %}
+    <h1>Lag</h1>
+    <h2>{{ view.kwargs.sport|title }}</h2>
+
+    {% for team in object_list %}
+        <ul>
+            <li><a href="{% url 'team:detail' sport=team.sport team_id=team.team_id slug=team.slug %}">{{ team }}</a></li>
+        </ul>
+    {% endfor%}
+{% endblock content %}
