@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.title }}{% endblock title %}
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.description }}</p>
+    <p><strong>Lag</strong>: <a href="{% url 'team:detail' sport=object.sport team_id=object.team.team_id slug=object.team.slug %}">{{ object.team }}</a></p>
+    <p><strong>Erfarenhet</strong>: minst {{ object.min_experience }}</p>
+    <p><strong>Spetsegenskap</strong>: {{ object.special_ability }}</p>
+    <p><strong>Ålder</strong>: högst {{ object.max_age }}</p>
+    <p><strong>Längd</strong>: minst {{ object.min_height }} cm</p>
+    <p><strong>Position</strong>: {{ object.position }}</p>
+
+    {% if user == object.team.user %}
+        <a href="{% url 'ad:delete' sport=object.sport ad_id=object.ad_id slug=object.slug  %}">ta bort annons</a>
+    {% endif %}
+{% endblock content %}

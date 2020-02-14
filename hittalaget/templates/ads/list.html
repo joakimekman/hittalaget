@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}annonser{% endblock title %}
+{% block content %}
+    <h1>Annonser</h1>
+    <h2>{{ view.kwargs.sport|title }}</h2>
+    <ul>
+    {% for ad in object_list %}
+        <li><a href="{% url 'ad:detail' sport=ad.sport ad_id=ad.ad_id slug=ad.slug %}">{{ ad }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

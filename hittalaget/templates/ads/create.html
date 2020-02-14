@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}skapa en annons{% endblock title %}
+{% block content %}
+    <h1>Skapa en annons</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+            {% for field in form %}
+                <p><strong>{{ field.label }}</strong></p>
+                <p>{{ field.errors }}</p>
+                <p>{{ field.help_text }}</p>
+                <p>{{ field }}</p>
+            {% endfor %}
+
+        <input type="submit" value="skapa annons">
+    </form>
+    
+{% endblock content %}
