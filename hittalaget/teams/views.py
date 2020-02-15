@@ -10,8 +10,9 @@ from django.views.generic import (
     ListView,
     UpdateView,
     View,
+    FormView,
 )
-from .forms import TeamForm, TeamCreateForm
+from .forms import SportForm, TeamForm, TeamCreateForm
 from .models import Team
 
 
@@ -77,6 +78,14 @@ class GetFormKwargsMixin:
 # ---------- TEAMS VIEWS ---------- #
 # --------------------------------- #
 
+
+class TeamInitiateCreateView(FormView):
+    template_name = "teams/initiate_create.html"
+    form_class = SportForm
+
+    def form_valid(self, form):
+        sport = form.cleaned_data['sport']
+        return redirect(reverse('team:create', kwargs={"sport": sport}))
 
 
 class TeamListView(ListView):
