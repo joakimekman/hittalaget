@@ -10,14 +10,24 @@ from django.views.generic import (
     DetailView,
     UpdateView,
     ListView,
+    FormView,
 )
 from .models import Ad
-from .forms import AdForm
+from .forms import SportForm, AdForm
 from hittalaget.conversations.forms import AdMessageForm
 from hittalaget.teams.models import Team
 
 
 VALID_SPORTS = ["fotboll"]
+
+
+class AdInitiateCreateView(FormView):
+    template_name = "ads/initiate_create.html"
+    form_class = SportForm
+
+    def form_valid(self, form):
+        sport = form.cleaned_data['sport']
+        return redirect(reverse('ad:create', kwargs={"sport": sport}))
 
 
 class AdDetailView(DetailView):

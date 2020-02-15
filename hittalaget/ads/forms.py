@@ -10,6 +10,19 @@ from hittalaget.players.models import Position
 import datetime
 
 
+class SportForm(forms.Form):
+
+    SPORTS = [
+        ("fotboll", "Fotboll"),
+    ]
+
+    sport = forms.CharField(
+        max_length=255,
+        label="Välj en sport",
+        widget=forms.Select(choices=SPORTS)
+    )
+
+
 class AdForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
