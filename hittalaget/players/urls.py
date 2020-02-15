@@ -3,7 +3,11 @@ from . import views
 
 app_name = "player"
 
+# hittalaget.se/spelare/ny/
+# hittalaget.se/spelare/fotboll/ny/
+
 urlpatterns = [
+    path('ny/', views.PlayerInitiateCreateView.as_view(), name="initiate_create"),
     path('<str:sport>/', views.PlayerListView.as_view(), name="list"),
     path('<str:sport>/ny/', views.PlayerCreateView.as_view(), name="create"),
     path('<str:sport>/uppdatera/', views.PlayerUpdateView.as_view(), name="update"),

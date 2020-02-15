@@ -12,9 +12,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
     View,
+    FormView,
 )
 from .models import Player, History
-from .forms import PlayerForm, HistoryForm
+from .forms import SportForm, PlayerForm, HistoryForm
 
 VALID_SPORTS = ["fotboll"]
 
@@ -63,6 +64,15 @@ class GetObjectMixin:
 # --------------------------------- #
 # ---------- PLAYER VIEWS --------- #
 # --------------------------------- #
+
+
+class PlayerInitiateCreateView(FormView):
+    template_name = "players/initiate_create.html"
+    form_class = SportForm
+    
+    def form_valid(self, form):
+        sport = form.cleaned_data['sport']
+        return redirect(reverse('player:create', kwargs={"sport": sport}))
 
 
 class PlayerListView(ListView):

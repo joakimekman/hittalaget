@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}skapa en spelarprofil{% endblock title %}
+{% block content %}
+    <h1>Skapa spelarprofil</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <p>{{ form.sport.label }}</p>
+        <p>{{ form.sport.errors }}</p>
+        <p>{{ form.sport }} <input type="submit" value="nästa"></p>
+    </form>
+{% endblock content %}
