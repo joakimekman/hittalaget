@@ -12,6 +12,12 @@
   {% if request.user == object %}
     <hr>
     <ul>
+      <li><a href="{% url 'player:initiate_create' %}">skapa spelarprofil</a></li>
+      <li><a href="{% url 'team:initiate_create' %}">skapa lag</a></li>
+      <li><a href="{% url 'ad:initiate_create' %}">skapa annons</a></li>
+    </ul>
+      <hr>
+    <ul>
       <li><a href="{% url 'user:password_change' %}">ändra lösenord</a></li>
       <li><a href="{% url 'user:update_account' %}">inställningar</a></li>
       <li><a href="{% url 'user:delete_account' %}">avregistrera konto</a></li>
