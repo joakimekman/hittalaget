@@ -16,5 +16,11 @@
       <li><a href="{% url 'user:update_account' %}">inställningar</a></li>
       <li><a href="{% url 'user:delete_account' %}">avregistrera konto</a></li>
     </ul>
+  {% else %}
+    <form method="post" action="{% url 'conversation:create' username=object.username %}">
+      {% csrf_token %}
+      <p>{{ form.content }}</p>
+      <input type="submit" value="sänd">
+    </form>
   {% endif %}
 {% endblock content %}

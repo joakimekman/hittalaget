@@ -18,7 +18,8 @@ from .forms import (
     UserUpdateForm,
     AuthenticationForm2,
     PasswordChangeForm2,
-)   
+)
+from hittalaget.conversations.forms import PmMessageForm
 
 User = get_user_model()
 
@@ -96,11 +97,14 @@ class UserDetailView(DetailView):
             self.object = user
 
         return self.object
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
+        ''' Add user's age. '''
         context['age'] = user.get_age()
+        ''' Add pm messaging form. '''
+        context['form'] = PmMessageForm
         return context
 
 

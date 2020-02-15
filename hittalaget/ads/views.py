@@ -13,6 +13,7 @@ from django.views.generic import (
 )
 from .models import Ad
 from .forms import AdForm
+from hittalaget.conversations.forms import AdMessageForm
 from hittalaget.teams.models import Team
 
 
@@ -29,6 +30,11 @@ class AdDetailView(DetailView):
             self.object = get_object_or_404(Ad.objects.select_related('team__user', 'position'), ad_id=ad_id) 
             
         return self.object
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = AdMessageForm
+        return context
     
 
 class AdListView(ListView):

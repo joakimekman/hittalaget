@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.conversation_id }}{% endblock title %}
+{% block content %}
+    <h1><a href="{% url 'ad:detail' sport=object.ad.sport ad_id=object.ad.ad_id slug=object.ad.slug %}">{{ object.ad.title }}</a></h1>
+
+    {% for message in object.messages.all %}
+        {% if message.author == object.ad.team.user %}
+            <p><strong><a href="{% url 'team:detail' sport=object.ad.sport team_id=object.ad.team.team_id slug=object.ad.team.slug %}">{{ object.ad.team }}</a>:</strong> {{ message.created|date:"Y-m-d H:i" }}</p>
+            <p>{{ message.content }}</p>
+        {% else %}
+            <p><strong><a href="{% url 'player:detail' sport=object.ad.sport username=message.author.username %}">{{ message.author }}</a></strong> {{ message.created|date:"Y-m-d H:i" }}</p>
+            <p>{{ message.content }}</p>
+        {% endif %}
+    {% endfor %}
+
+    {% if object.is_active %}
+        <form method="post" action="{% url 'conversation:message_ad' conversation_id=object.conversation_id %}">
+            {% csrf_token %}
+            <p>{{ form.content }}</p>
+            <input type="submit" value="sänd">
+        </form>
+        <br>
+        <a href="{% url 'conversation:delete_ad' conversation_id=object.conversation_id %}">lämna konversationen</a>
+    {% else %}
+        <i>Konversationen är stängd.</i>
+    {% endif %}
+
+    
+{% endblock content %}

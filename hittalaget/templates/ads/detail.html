@@ -12,5 +12,11 @@
 
     {% if user == object.team.user %}
         <a href="{% url 'ad:delete' sport=object.sport ad_id=object.ad_id slug=object.slug  %}">ta bort annons</a>
+    {% else %}
+        <form method="post" action="{% url 'conversation:create_ad' ad_id=object.ad_id %}">
+            {% csrf_token %}
+            <p>{{ form.content }}</p>
+            <input type="submit" value="kontakta">
+        </form>
     {% endif %}
 {% endblock content %}

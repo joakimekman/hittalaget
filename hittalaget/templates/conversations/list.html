@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}{{ view.kwargs.label }}: konversationer{% endblock title %}
+{% block content %}
+    <h1>{{ view.kwargs.label}} konversationer</h1>
+
+    {% if view.kwargs.label == "pm" %}
+        <ul>
+            {% for conversation in object_list %}
+                {% for participant in conversation.users_arr %}
+                    {% if not participant == user.username  %}
+                        <li><a href="{% url 'conversation:detail' username=participant %}">{{ participant }}</a> <label style="background:lightgreen; padding: 1px 4px; color:white; border-radius:4px;">{{ conversation.tag }}</label> <a href="{% url 'conversation:delete' username=participant %}"><span style="background:tomato; color:white; padding: 1px 4px; border-radius:4px;">ta bort</span></a></li>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% elif view.kwargs.label == "ad" %}
+    <ul>
+        {% for conversation in object_list %}
+            {% for participant in conversation.users_arr %}
+                {% if not participant == user.username %}
+                    {% if participant == conversation.ad.team.user.username %}
+                        <li><a href="{% url 'conversation:detail_ad' conversation_id=conversation.conversation_id %}">{{ conversation.ad.team }}</a> <label style="background:lightgreen; padding: 1px 4px; color:white; border-radius:4px;">{{ conversation.tag }}</label> <a href="{% url 'conversation:delete_ad' conversation_id=conversation.conversation_id %}"><span style="background:tomato; color:white; padding: 1px 4px; border-radius:4px;">ta bort</span></a></li>
+                    {% else %}
+                        <li><a href="{% url 'conversation:detail_ad' conversation_id=conversation.conversation_id %}">{{ participant }}</a> <label style="background:lightgreen; padding: 1px 4px; color:white; border-radius:4px;">{{ conversation.tag }}</label> <a href="{% url 'conversation:delete_ad' conversation_id=conversation.conversation_id %}"><span style="background:tomato; color:white; padding: 1px 4px; border-radius:4px;">ta bort</span></a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock content %}
+
+
+
+
+
+
+

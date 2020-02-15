@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}pm: {{ view.kwargs.username}}{% endblock title %}
+{% block content %}
+    <h1>Konversation med {{ view.kwargs.username }}</h1>
+
+    {% for message in object.messages.all %}
+        <p><strong><a href="{% url 'user:detail' username=message.author.username %}">{{ message.author.username }}</a></strong> {{ message.created|date:"Y-m-d H:i" }}</p>
+        <p>{{ message.content }}</p>
+    {% endfor %}
+
+    <form method="post" action="{% url 'conversation:create' username=view.kwargs.username %}">
+        {% csrf_token %}
+        <p>{{ form.content }}</p>
+        <input type="submit" value="sänd"> 
+    </form>
+    <br>
+    <a href="{% url 'conversation:delete' username=view.kwargs.username %}">lämna konversationen</a>
+{% endblock content %}
